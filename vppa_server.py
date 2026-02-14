@@ -29,10 +29,11 @@ async def get_status():
     state = simulator.get_current_state()
     
     # 2. Calculate PPA settlement based on this data
-    # We use the simulated generation and price
+    # We use the simulated generation, price, and imbalance
     ppa_result = engine.calculate_virtual_ppa(
         kwh=state['generation_kwh'],
-        market_price=state['market_price']
+        market_price=state['market_price'],
+        imbalance_kwh=state.get('imbalance_kwh', 0)
     )
     
     # 3. Combine results
@@ -40,10 +41,11 @@ async def get_status():
         "timestamp": state['timestamp'],
         "market_price": state['market_price'],
         "gen_kwh": state['generation_kwh'],
-        "total_payment": ppa_result['total_payment'],
-        "cfd_adjustment": ppa_result['cfd_adjustment'],
+        "imbalance_kwh": state.get('imbalance_kwh', 0),
+        "ppa_result": ppa_result, # Full result with breakdown
         "history": simulator.get_history()
     }
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
