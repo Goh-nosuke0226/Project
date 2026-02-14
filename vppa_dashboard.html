@@ -23,9 +23,14 @@
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
-        .neon-text-green { text-shadow: 0 0 10px rgba(34, 197, 94, 0.5); }
-        .neon-border-green { box-shadow: 0 0 20px rgba(34, 197, 94, 0.2); }
-        
+        .neon-text-green {
+            text-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+        }
+
+        .neon-border-green {
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
+        }
+
         .grad-text {
             background: linear-gradient(90deg, #4ade80, #60a5fa);
             -webkit-background-clip: text;
@@ -33,9 +38,15 @@
         }
 
         @keyframes flow {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
         }
+
         .animate-flow {
             animation: flow 2s infinite linear;
         }
@@ -52,13 +63,21 @@
         <!-- Header -->
         <header class="flex justify-between items-center mb-10">
             <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-blue-500 rounded-xl flex items-center justify-center font-black text-white text-2xl shadow-lg">G</div>
+                <div
+                    class="w-12 h-12 bg-gradient-to-br from-green-400 to-blue-500 rounded-xl flex items-center justify-center font-black text-white text-2xl shadow-lg">
+                    G</div>
                 <div>
-                    <h1 class="text-2xl font-black tracking-tighter text-white">GLX-ANTIGRAVITY <span class="text-xs font-light text-slate-400 block tracking-widest uppercase">PPA Optimization Platform</span></h1>
+                    <h1 class="text-2xl font-black tracking-tighter text-white">GLX-ANTIGRAVITY <span
+                            class="text-xs font-light text-slate-400 block tracking-widest uppercase">PPA Optimization
+                            Platform</span></h1>
                 </div>
             </div>
             <div class="flex items-center gap-4">
-                <div class="px-4 py-1.5 glass rounded-full text-[10px] font-bold text-green-400 flex items-center gap-2">
+                <button onclick="syncJEPX()"
+                    class="px-6 py-2 glass rounded-full text-xs font-bold text-white hover:bg-white/10 transition-all border border-blue-500/50 shadow-lg shadow-blue-500/20 active:scale-95">
+                    SYNC JEPX DATA
+                </button>
+                <div class="px-4 py-2 glass rounded-full text-[10px] font-bold text-green-400 flex items-center gap-2">
                     <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span> SYSTEM LIVE: JEPX DATA SYNCED
                 </div>
             </div>
@@ -69,11 +88,14 @@
             <!-- Generation -->
             <div class="glass p-6 rounded-[2rem] relative overflow-hidden group">
                 <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                    <svg class="w-16 h-16 text-green-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z"/></svg>
+                    <svg class="w-16 h-16 text-green-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z" />
+                    </svg>
                 </div>
                 <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">現在の発電量</p>
                 <div class="text-4xl font-black text-white font-mono">
-                    <span id="gen-kwh" class="neon-text-green">---</span> <span class="text-sm font-normal text-slate-400">kWh</span>
+                    <span id="gen-kwh" class="neon-text-green">---</span> <span
+                        class="text-sm font-normal text-slate-400">kWh</span>
                 </div>
             </div>
 
@@ -93,19 +115,43 @@
                     <span id="imbalance-kwh">---</span> <span class="text-sm font-normal text-slate-400">kWh</span>
                 </div>
                 <div class="mt-2 h-1 bg-slate-700 rounded-full overflow-hidden">
-                    <div id="imbalance-bar" class="h-full bg-orange-400 transition-all duration-500" style="width: 50%"></div>
+                    <div id="imbalance-bar" class="h-full bg-orange-400 transition-all duration-500" style="width: 50%">
+                    </div>
                 </div>
             </div>
 
             <!-- Total Settlement -->
-            <div class="glass p-6 rounded-[2rem] border-green-500/20 bg-gradient-to-br from-green-500/10 to-transparent">
+            <div
+                class="glass p-6 rounded-[2rem] border-green-500/20 bg-gradient-to-br from-green-500/10 to-transparent">
                 <p class="text-green-400/80 text-xs font-bold uppercase tracking-widest mb-1">精算合計金額 (税込)</p>
                 <div class="text-4xl font-black text-white font-mono">
                     <span class="text-2xl">¥</span><span id="total-payment">---</span>
                 </div>
-                <div class="flex justify-between items-center mt-2 group cursor-pointer">
-                    <span class="text-[10px] text-slate-400 uppercase font-bold group-hover:text-green-400 transition-colors">Details Available</span>
-                    <svg class="w-4 h-4 text-green-400 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </div>
+        </div>
+
+        <!-- Monthly Report Section (v1.0 Implementation) -->
+        <div class="glass p-8 rounded-[2.5rem] mb-10 border-blue-500/10">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-black text-white italic tracking-tighter">MONTHLY SETTLEMENT REPORT <span
+                        id="report-period" class="text-xs font-normal text-slate-500 ml-4"></span></h2>
+                <div class="px-3 py-1 bg-blue-500/20 rounded text-[10px] font-bold text-blue-400 uppercase">Status:
+                    Finalized</div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="flex flex-col">
+                    <span class="text-[10px] text-slate-500 font-bold uppercase mb-1">Total Generation</span>
+                    <span id="report-gen" class="text-2xl font-black text-white font-mono">--- kWh</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-[10px] text-slate-500 font-bold uppercase mb-1">Total Settlement</span>
+                    <span id="report-payment" class="text-2xl font-black text-green-400 font-mono">¥---</span>
+                </div>
+                <div class="flex items-center justify-end">
+                    <button
+                        class="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-500 rounded-2xl text-xs font-bold text-white hover:shadow-xl hover:shadow-blue-500/20 transition-all active:scale-95">
+                        DOWNLOAD PDF REPORT
+                    </button>
                 </div>
             </div>
         </div>
@@ -127,7 +173,8 @@
 
             <!-- Breakdown Side -->
             <div class="glass p-8 rounded-[2.5rem]">
-                <h2 class="text-xl font-black text-white mb-6 uppercase tracking-widest border-b border-slate-700 pb-4">精算明細 <span class="text-xs font-normal text-slate-500">Settlement Info</span></h2>
+                <h2 class="text-xl font-black text-white mb-6 uppercase tracking-widest border-b border-slate-700 pb-4">
+                    精算明細 <span class="text-xs font-normal text-slate-500">Settlement Info</span></h2>
                 <div class="space-y-4 font-mono text-sm" id="breakdown-list">
                     <!-- Dynamic Items -->
                     <div class="flex justify-between py-2 border-b border-white/5">
@@ -155,7 +202,7 @@
                         <span id="brk-tax" class="text-slate-400">¥---</span>
                     </div>
                 </div>
-                
+
                 <div class="mt-8 p-4 bg-white/5 rounded-2xl border border-white/10 text-center">
                     <p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Contract Status</p>
                     <p class="text-green-400 font-bold">ACTIVE - OPTIMIZED</p>
@@ -165,10 +212,12 @@
 
         <!-- Flow Visualization -->
         <div class="glass p-10 rounded-[3rem] mb-10 overflow-hidden relative">
-            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500/5 to-transparent animate-flow"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500/5 to-transparent animate-flow">
+            </div>
             <div class="flex flex-col md:flex-row items-center justify-around gap-12 relative z-10">
                 <div class="text-center group">
-                    <div class="w-32 h-32 glass border-blue-500/30 rounded-3xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform cursor-pointer">
+                    <div
+                        class="w-32 h-32 glass border-blue-500/30 rounded-3xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform cursor-pointer">
                         <span class="text-3xl font-black text-blue-400">CEC</span>
                     </div>
                     <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Generator</p>
@@ -176,19 +225,24 @@
 
                 <div class="flex-1 w-full space-y-6">
                     <div class="h-2 glass rounded-full relative overflow-hidden">
-                        <div id="flow-bar-env" class="absolute top-0 left-0 h-full bg-green-400 shadow-[0_0_15px_rgba(74,222,128,0.5)] transition-all duration-1000" style="width: 0%"></div>
+                        <div id="flow-bar-env"
+                            class="absolute top-0 left-0 h-full bg-green-400 shadow-[0_0_15px_rgba(74,222,128,0.5)] transition-all duration-1000"
+                            style="width: 0%"></div>
                     </div>
                     <div class="flex justify-between text-[10px] font-black tracking-widest">
                         <span class="text-green-400">ENVIRONMENTAL VALUE FLOW</span>
                         <span class="text-blue-400">SPOT MARKET SYNCED</span>
                     </div>
                     <div class="h-2 glass rounded-full relative overflow-hidden">
-                        <div id="flow-bar-price" class="absolute top-0 right-0 h-full bg-blue-400 shadow-[0_0_15px_rgba(96,165,250,0.5)] transition-all duration-1000" style="width: 0%"></div>
+                        <div id="flow-bar-price"
+                            class="absolute top-0 right-0 h-full bg-blue-400 shadow-[0_0_15px_rgba(96,165,250,0.5)] transition-all duration-1000"
+                            style="width: 0%"></div>
                     </div>
                 </div>
 
                 <div class="text-center group">
-                    <div class="w-32 h-32 glass border-green-500/30 rounded-3xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform cursor-pointer">
+                    <div
+                        class="w-32 h-32 glass border-green-500/30 rounded-3xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform cursor-pointer">
                         <span class="text-3xl font-black grad-text">YOU</span>
                     </div>
                     <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Consumer</p>
@@ -248,16 +302,16 @@
                     maintainAspectRatio: false,
                     plugins: { legend: { display: false } },
                     scales: {
-                        x: { 
+                        x: {
                             grid: { display: false },
                             ticks: { color: '#475569', font: { family: 'JetBrains Mono', size: 10 } }
                         },
-                        y: { 
+                        y: {
                             position: 'left',
                             grid: { color: 'rgba(255,255,255,0.05)' },
                             ticks: { color: '#4ade80' }
                         },
-                        y1: { 
+                        y1: {
                             position: 'right',
                             grid: { display: false },
                             ticks: { color: '#60a5fa' }
@@ -265,6 +319,36 @@
                     }
                 }
             });
+        }
+
+        async function syncJEPX() {
+            try {
+                const btn = event.target;
+                btn.innerText = "SYNCING...";
+                const response = await fetch('/api/sync', { method: 'POST' });
+                const data = await response.json();
+                if (data.success) {
+                    alert("JEPXデータの同期が完了しました！\nファイル: " + data.cache_path);
+                } else {
+                    alert("同期に失敗しました。オフラインモードで継続します。");
+                }
+                btn.innerText = "SYNC JEPX DATA";
+            } catch (error) {
+                console.error('Sync Error:', error);
+                alert("同期エラーが発生しました。");
+            }
+        }
+
+        async function fetchReport() {
+            try {
+                const response = await fetch('/api/report');
+                const data = await response.json();
+                document.getElementById('report-period').innerText = data.period;
+                document.getElementById('report-gen').innerText = data.total_gen.toLocaleString() + ' kWh';
+                document.getElementById('report-payment').innerText = '¥' + data.total_payment.toLocaleString();
+            } catch (error) {
+                console.error('Report Error:', error);
+            }
         }
 
         async function fetchStatus() {
@@ -278,7 +362,7 @@
                 document.getElementById('market-price').innerText = data.market_price.toFixed(1);
                 document.getElementById('total-payment').innerText = ppa.total_payment.toLocaleString();
                 document.getElementById('imbalance-kwh').innerText = data.imbalance_kwh.toLocaleString();
-                
+
                 // Detailed Breakdown
                 document.getElementById('brk-cfd').innerText = '¥' + ppa.breakdown.cfd_amount.toLocaleString();
                 document.getElementById('brk-service').innerText = '¥' + ppa.breakdown.service_fee.toLocaleString();
@@ -311,6 +395,7 @@
         }
 
         fetchStatus();
+        fetchReport();
         setInterval(fetchStatus, 3000);
     </script>
 </body>

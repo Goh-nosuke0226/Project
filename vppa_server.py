@@ -29,7 +29,6 @@ async def get_status():
     state = simulator.get_current_state()
     
     # 2. Calculate PPA settlement based on this data
-    # We use the simulated generation, price, and imbalance
     ppa_result = engine.calculate_virtual_ppa(
         kwh=state['generation_kwh'],
         market_price=state['market_price'],
@@ -46,6 +45,26 @@ async def get_status():
         "history": simulator.get_history()
     }
 
+@app.post("/api/sync")
+async def sync_jepx():
+    """Manual trigger to sync JEPX data"""
+    fetcher = simulator.fetcher
+    success = fetcher.sync_data()
+    return {"success": success, "cache_path": fetcher.cache_path}
+
+@app.get("/api/report")
+async def get_report():
+    """Get the summary of the latest batch settlement"""
+    # In a real app, this would run over a specified period. 
+    # Here we simulate a monthly summary for v1.0.
+    return {
+        "period": "2025/04",
+        "total_gen": 1266.2,
+        "total_payment": 37893,
+        "status": "Finalized"
+    }
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
 
